@@ -17,6 +17,7 @@ import argparse
 """
 
 
+# Collects all paths for files user inputs to command line
 def collect_paths(path):
     if not os.path.exists(path):
         return ["empty"]
@@ -29,12 +30,14 @@ def collect_paths(path):
     return list_of_paths
 
 
-def copy_files(path):
-    files = os.listdir(".")
+# Copies all files user inputs to a specified directory
+def copy_files(path, files):
     current_dir = os.getcwd()
     if not os.path.exists(path):
         p = 'mkdir -p {0}'.format(path)
         os.system(p)
+    else:
+        print "Path exists"
     for f in files:
         match = re.search('__\w+__', f)
         if match:
@@ -42,11 +45,13 @@ def copy_files(path):
             shutil.copy(f, path)
 
 
+# Creates a zip file with any file user inputs
 def zip_files(zipname, paths):
     file_names = ''
     for i in paths:
         file_names += i + " "
     cmd = "zip -j {0} {1}".format(str(zipname), str(file_names))
+    print "\n Command I'm going to do: ", cmd, "\n"
     os.system(cmd)
 
 
@@ -62,6 +67,7 @@ def main():
         parser.print_usage()
         sys.exit(1)
 
+    # This grabs file paths everytime the program runs
     all_paths = collect_paths(args.dirs)
 
     if args.todir:

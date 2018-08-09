@@ -10,8 +10,9 @@
             "request": "launch",
             "program": "${file}",
             "args": [
-                // "--tozip", "test.zip", 
-                "far"
+                "--tozip", "test.zip", ".",
+                // "--todir", "./hello/yo", "."
+                
             ]
         },
         {
